@@ -175,6 +175,18 @@ def main(window):
   restart_button = Button(screen_width // 2 - 50, screen_height // 2 + 100, restart_img)
 
   block_size = 96
+  player = Player(300, 300, 50, 50)
+  fire = Fire(100, HEIGHT - block_size - 64, 16, 32)
+  fire.on()
+  fpla = Fpla(700, HEIGHT - block_size - 64, 32, 10)
+  fpla.On()
+  floor = [Block(i * block_size, HEIGHT - block_size, block_size)
+  for i in range(-WIDTH // block_size, (WIDTH * 2) // block_size)]
+  objects = [*floor, Block(0, HEIGHT - block_size * 2, block_size),
+  Block(block_size * 3, HEIGHT - block_size * 4, block_size), fire, fpla]
+
+  offset_x = 0
+  scroll_area_width = 200
 
 
 
@@ -203,4 +215,5 @@ def main():
 
 if __name__ == "__main__":
   main()
+
 
