@@ -443,7 +443,10 @@ def main(window):
     wall1 = [Block(WIDTH + (block_size * 5), i * block_size, block_size) for i in range(-HEIGHT // block_size, (HEIGHT * 2) // block_size)]
     wall2 = [Block(-WIDTH - (block_size * 5), i * block_size, block_size) for i in range(-HEIGHT // block_size, (HEIGHT * 2) // block_size)]
   
-    objects = [*floor, *wall1, *wall2, Block(block_size * 0, HEIGHT - block_size * 2, block_size), Block(block_size * 3, HEIGHT - block_size * 4, block_size),  Block(block_size * 2, HEIGHT - block_size * 4, block_size), Block(block_size * -1, HEIGHT - block_size * 5, block_size),  Block(block_size * -5, HEIGHT - block_size * 5, block_size), Block(block_size * -6, HEIGHT - block_size * 5, block_size), Block(block_size * -7, HEIGHT - block_size * 7, block_size), fire, fpla, fan]
+    objects = [*floor, *wall1, *wall2, Block(block_size * 0, HEIGHT - block_size * 2, block_size), Block(block_size * 3, HEIGHT - block_size * 4, block_size), 
+    Block(block_size * 2, HEIGHT - block_size * 4, block_size), Block(block_size * -1, HEIGHT - block_size * 5, block_size),  Block(block_size * -5, HEIGHT 
+    - block_size * 5, block_size), Block(block_size * -6, HEIGHT - block_size * 5, block_size), Block(block_size * -7, HEIGHT - block_size * 7, block_size),
+     fire, fpla, fan]
 
     offset_x = 333
     scroll_area_width = 200
