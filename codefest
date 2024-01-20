@@ -164,6 +164,18 @@ def handle_move(player, objects):
       if obj and obj.name == "fpla":
           player.make_hit()
 
+def main(window):
+
+  start_button = Button(screen_width //2-350, screen_height // 2, start_img)
+  exit_button = Button(screen_width // 2 + 150, screen_height // 2, exit_img)
+  clock = pygame.time.Clock()
+  background, bg_image = get_background("green.png")
+  run = True
+  main_menu = True
+  restart_button = Button(screen_width // 2 - 50, screen_height // 2 + 100, restart_img)
+
+  block_size = 96
+
 
 
 
@@ -191,5 +203,4 @@ def main():
 
 if __name__ == "__main__":
   main()
-
 
