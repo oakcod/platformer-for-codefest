@@ -1,0 +1,13 @@
+import os
+import random
+import pygame
+
+pygame.init()
+
+pygame.display.set_caption("Platformer game")
+
+def draw():
+  pass
+
+def main():
+  pass
