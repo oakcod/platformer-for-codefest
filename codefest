@@ -2,7 +2,7 @@ import random
 import os
 import math
 import pygame
-
+from pygame.constants import BUTTON_LEFT
 
 pygame.init()
 
@@ -21,13 +21,22 @@ start_img = pygame.image.load('img/start_btn.png')
 exit_img = pygame.image.load('img/exit_btn.png')
 bg2_img = pygame.image.load('img/sky.png')
 
+start_button = pygame.transform.scale(start_img, (200, 100))
+quit_button = pygame.transform.scale(exit_img, (200, 100))
 
+def get_block(size):
+  path = join("assets", "Terrain", "Terrain.png")
+  image = pygame.image.load(path).convert_alpha()
+  surface = pygame.Surface((size, size), pygame.SRCALPHA, 32)
+  rect = pygame.Rect(96, 0, size, size)
+  surface.blit(image, (0, 0), rect)
+  return pygame.transform.scale2x(surface)
 
 def draw():
- pygame.display.update()
-
+  pass
 
 def main():
+  global main_menu
   clock = pygame.time.Clock()
   run = True
   while run:
@@ -36,10 +45,10 @@ def main():
       if event.type == pygame.QUIT:
         run = False
         pygame.quit()
-    
-    draw()
+    if run:
+      draw()
 
 
-    
+
 if __name__ == "__main__":
   main()
