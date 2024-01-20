@@ -2,18 +2,36 @@ import os
 import random
 import math
 import pygame
+
 pygame.init()
 
-
 pygame.display.set_caption("Platformer game")
+
 WIDTH, HEIGHT = 1000, 800
-WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+FPS = 60
+screen_width = 1000
+screen_height = 800
+screen = pygame.display.set_mode((screen_width, screen_height))
+
+
+FPS = 60
 
 def draw():
   pass
 
+
 def main():
-  pass
+  clock = pygame.time.Clock()
+  run = True
+  while run:
+  for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+      run = False
+      pygame.quit()
+
+  
 
 if __name__ == "__main__":
   main()
+
+
