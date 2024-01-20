@@ -1,10 +1,9 @@
-import os
-import random
-import math
-import pygame
-from pygame.locals import *
 from os import listdir
 from os.path import isfile, join
+
+import pygame
+from pygame.locals import *
+
 pygame.init()
 
 
@@ -87,7 +86,7 @@ class Button():
 
     #check mouseover and clicked conditions
     if self.rect.collidepoint(pos):
-      if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+      if pygame.mouse.get_pressed()[0] == 1 and self.clicked is False:
         action = True
         self.clicked = True
 
@@ -286,6 +285,36 @@ class Fpla(Object):
         if self.animation_count // self.ANIMATION_DELAY > len(sprites):
             self.animation_count = 0
 
+class Fan(Object):
+  ANIMATION_DELAY = 3
+
+  def __init__(self, x, y, width, height):
+      super().__init__(x, y, width, height, "Fan")
+      self.fan = load_sprite_sheets("Traps", "Fan", width, height)
+      self.image = self.fan["OFF"][0]
+      self.mask = pygame.mask.from_surface(self.image)
+      self.animation_count = 0
+      self.animation_name = "OFF"
+
+  def On(self):
+      self.animation_name = "ON"
+
+  def Off(self):
+      self.animation_name = "OFF"
+
+  def loop(self):
+      sprites = self.fan[self.animation_name]
+      sprite_index = (self.animation_count //
+                      self.ANIMATION_DELAY) % len(sprites)
+      self.image = sprites[sprite_index]
+      self.animation_count += 1
+
+      self.rect = self.image.get_rect(topleft=(self.rect.x, self.rect.y))
+      self.mask = pygame.mask.from_surface(self.image)
+
+      if self.animation_count // self.ANIMATION_DELAY > len(sprites):
+          self.animation_count = 0
+
 
 
 
@@ -366,6 +395,10 @@ def handle_move(player, objects):
         if obj and obj.name == "fpla":
             player.make_hit()
 
+    for obj in to_check:
+      if obj and obj.name == "Fan":
+        player.make_hit()
+
 
 def main(window):
 
@@ -375,7 +408,7 @@ def main(window):
     background, bg_image = get_background("Green.png")
     run = True
     main_menu = True
-    restart_button = Button(screen_width // 2 - 50, screen_height // 2 + 100, restart_img)
+    Button(screen_width // 2 - 50, screen_height // 2 + 100, restart_img)
 
     block_size = 96
 
@@ -384,10 +417,13 @@ def main(window):
     fire.on()
     fpla = Fpla(700, HEIGHT - block_size - 64, 32, 10)
     fpla.On()
+    fan = Fan(-500, HEIGHT - block_size - 64, 24, 8)
+    fan.On()
+    objects = [fire, fpla, fan]
     floor = [Block(i * block_size, HEIGHT - block_size, block_size)
     for i in range(-WIDTH // block_size, (WIDTH * 2) // block_size)]
     objects = [*floor, Block(0, HEIGHT - block_size * 2, block_size),
-    Block(block_size * 3, HEIGHT - block_size * 4, block_size), fire, fpla]
+    Block(block_size * 3, HEIGHT - block_size * 4, block_size), fire, fpla, fan]
 
     offset_x = 0
     scroll_area_width = 200
@@ -396,7 +432,7 @@ def main(window):
     while run:
         clock.tick(FPS)
         screen.blit(bg2_img, (0,0))
-        if main_menu == True:
+        if main_menu is True:
                if exit_button.draw():
                       run = False
                if  start_button.draw():
@@ -405,6 +441,7 @@ def main(window):
                 player.loop(FPS)
                 fire.loop()
                 fpla.loop()
+                fan.loop()
                 handle_move(player, objects)
                 draw(window, background, bg_image, player, objects, offset_x)
 
