@@ -8,11 +8,10 @@ pygame.init()
 
 pygame.display.set_caption("Platformer game")
 
-WIDTH, HEIGHT = 1000, 800 #Setup Constant Variables
+#setup constant variables
 FPS = 60
-screen_width = 1000
-screen_height = 800
-screen = pygame.display.set_mode((screen_width, screen_height))
+WIDTH, HEIGHT = 1000, 800
+WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 
 main_menu = True
 run = True
@@ -22,9 +21,10 @@ start_img = pygame.image.load('img/start_btn.png')
 exit_img = pygame.image.load('img/exit_btn.png')
 bg2_img = pygame.image.load('img/sky.png')
 
+
+
 def draw():
-  screen.fill((200, 200, 255))
-  pygame.display.update()
+ pygame.display.update()
 
 
 def main():
@@ -43,5 +43,3 @@ def main():
     
 if __name__ == "__main__":
   main()
-
-
