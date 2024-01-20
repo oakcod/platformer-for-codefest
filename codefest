@@ -1,9 +1,10 @@
-import random
 import os
+import random
 import math
 import pygame
-from pygame.constants import BUTTON_LEFT
-
+from pygame.locals import *
+from os import listdir
+from os.path import isfile, join
 pygame.init()
 
 pygame.display.set_caption("Platformer game")
@@ -48,7 +49,7 @@ class Button():
 
     #check mouseover and clicked conditions
     if self.rect.collidepoint(pos):
-      if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
+      if pygame.mouse.get_pressed()[0] == 1 and self.clicked is False:
         action = True
         self.clicked = True
 
