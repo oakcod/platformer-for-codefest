@@ -187,33 +187,45 @@ def main(window):
 
   offset_x = 0
   scroll_area_width = 200
-
-
-
-
-
-
-
-
-def draw():
-  pass
-
-def main():
-  global main_menu
-  clock = pygame.time.Clock()
-  run = True
   while run:
     clock.tick(FPS)
+    screen.blit(bg2_img, (0,0))
+    if main_menu == True:
+           if exit_button.draw():
+                  run = False
+           if  start_button.draw():
+                    main_menu = False
+    else:
+            player.loop(FPS)
+            fire.loop()
+            fpla.loop()
+            handle_move(player, objects)
+            draw(window, background, bg_image, player, objects, offset_x)
+
+            if ((player.rect.right - offset_x >= WIDTH - scroll_area_width) and player.x_vel > 0) or (
+                    (player.rect.left - offset_x <= scroll_area_width) and player.x_vel < 0):
+                offset_x += player.x_vel 
+
+    pygame.display.update()
     for event in pygame.event.get():
-      if event.type == pygame.QUIT:
-        run = False
-        pygame.quit()
-    if run:
-      draw()
+        if event.type == pygame.QUIT:
+            run = False
+            break
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE and player.jump_count < 2:
+                player.jump()
 
 
+
+
+
+
+  pygame.quit()
+  quit()
 
 if __name__ == "__main__":
-  main()
+  main(window)
+
 
 
